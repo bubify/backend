@@ -59,7 +59,7 @@ class HelpRequestController {
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    public static final String filterStudent = "**,submitters[id,firstName,lastName,verifiedProfilePic],helper[id,firstName,lastName]";
+    public static final String filterStudent = "**,submitters[id,firstName,lastName,verifiedProfilePic,needsProfilePic],helper[id,firstName,lastName]";
 
     public List<HelpRequest> helpRequestsCurrentCourseInstance() {
         var currentCourseStartDate = courses.currentCourseInstance().getStartDate().atStartOfDay();
@@ -83,7 +83,8 @@ class HelpRequestController {
     @CrossOrigin
     @GetMapping("/helpRequests/active")
     List<HelpRequest> active() {
-        return SquigglyUtils.listify(Squiggly.init(AUPortal.OBJECT_MAPPER, HelpRequestController.filterStudent), pending(), HelpRequest.class);
+        return pending();
+        //return SquigglyUtils.listify(Squiggly.init(AUPortal.OBJECT_MAPPER, HelpRequestController.filterStudent), pending(), HelpRequest.class);
     }
 
     List<HelpRequest> pending() {
